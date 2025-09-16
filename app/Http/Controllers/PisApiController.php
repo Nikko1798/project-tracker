@@ -12,7 +12,7 @@ class PisApiController extends Controller
     public function __construct(PisApiRepository $pisApiRepo){
         $this->pisApiRepo=$pisApiRepo;
     }
-    public function getProjectInformation($reference_number){
-        return $this->pisApiRepo->getProjectInformation($reference_number);
+    public function getProjectInformation(){
+        return $this->pisApiRepo->getProjectInformation();
     }
 }

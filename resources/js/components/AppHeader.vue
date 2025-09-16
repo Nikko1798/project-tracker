@@ -37,7 +37,7 @@ const activeItemStyles = computed(
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Project Details',
         href: dashboard(),
         icon: LayoutGrid,
     },
@@ -87,7 +87,7 @@ const rightNavItems: NavItem[] = [
                                         {{ item.title }}
                                     </Link>
                                 </nav>
-                                <div class="flex flex-col space-y-4">
+                                <!-- <div class="flex flex-col space-y-4">
                                     <a
                                         v-for="item in rightNavItems"
                                         :key="item.title"
@@ -99,7 +99,7 @@ const rightNavItems: NavItem[] = [
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         <span>{{ item.title }}</span>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -132,11 +132,11 @@ const rightNavItems: NavItem[] = [
 
                 <div class="ml-auto flex items-center space-x-2">
                     <div class="relative flex items-center space-x-1">
-                        <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
+                        <!-- <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
                             <Search class="size-5 opacity-80 group-hover:opacity-100" />
-                        </Button>
+                        </Button> -->
 
-                        <div class="hidden space-x-1 lg:flex">
+                        <!-- <div class="hidden space-x-1 lg:flex">
                             <template v-for="item in rightNavItems" :key="item.title">
                                 <TooltipProvider :delay-duration="0">
                                     <Tooltip>
@@ -154,7 +154,7 @@ const rightNavItems: NavItem[] = [
                                     </Tooltip>
                                 </TooltipProvider>
                             </template>
-                        </div>
+                        </div> -->
                     </div>
 
                     <DropdownMenu>
