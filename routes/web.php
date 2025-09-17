@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
      if (auth()->check()) {
@@ -13,10 +14,15 @@ Route::get('/', function () {
     }
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('dashboard', function () {
 
+  
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])
+        ->name('dashboard');
+});
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
 require __DIR__.'/PisApi.php';
