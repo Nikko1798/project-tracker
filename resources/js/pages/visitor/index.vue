@@ -96,7 +96,7 @@ import { CircleCheckBig } from 'lucide-vue-next';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 const props=defineProps({
      pisData: {
-        type: Array as PropType<Record<string, any>[]>, 
+        type: Object as PropType<Record<string, any>>, 
         default: () => [],
     },
 })

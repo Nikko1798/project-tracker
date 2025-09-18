@@ -15,7 +15,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 const props=defineProps({
      pisData: {
-        type: Array as PropType<Record<string, any>>, 
+        type: Object as PropType<Record<string, any>>, 
         default: () => [],
     },
 })
