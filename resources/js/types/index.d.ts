@@ -35,3 +35,8 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface Roles{
+    id: number;
+    name: string;
+}

@@ -28,11 +28,24 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reference_number' => ['required', 'string'],
+            'identifier' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
-
+    public function getuserData(){
+         $field = filter_var($this->input('identifier'), FILTER_VALIDATE_EMAIL) ;
+         if($field)
+         {
+            $user=User::where('email',$this->input('identifier') )->first();
+            return $user;
+         }
+         else{
+            $user = User::whereHas('reference_numbers', function ($query) {
+                        $query->where('reference_number', $this->input('identifier'));
+                    })->first();
+            return $user;
+         }
+    }
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -41,13 +54,7 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-        // $ref = ReferenceNumber::where('reference_number', $this->input('reference_number'))->first();
-        $user = User::whereHas('reference_numbers', function ($query) {
-            $query->where('reference_number', $this->input('reference_number'));
-        })->first();
-
-        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-        // if (! $ref || ! $ref->user || ! Hash::check($this->input('password'), $ref->user->password)) {
+        $user=self::getuserData();
         if (! $user) {
             throw ValidationException::withMessages([
                 'reference_number' => trans('auth.failed'),

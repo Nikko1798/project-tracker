@@ -4,7 +4,10 @@ import { usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const quote = page.props.quote;
-
+const props=defineProps<{
+    title?: string;
+    description?: string;
+}>();
  const images = [
         "https://ik.imagekit.io/tvlk/blog/2023/09/shutterstock_2317865365.jpg?tr=q-70,c-at_max,w-1000,h-800,dpr-2",
         "https://upload.wikimedia.org/wikipedia/commons/f/f3/Manila_Metropolitan_Theater_or_commonly_called_the_Met%2C_an_abandoned_art_deco_building_in_the_heart_of_Manila.jpg",
@@ -51,9 +54,9 @@ onMounted(() => {
     <div class="paint-bg lg:p-8 h-full flex w-full">
       <div class="mx-auto flex w-full max-w-md flex-col justify-center space-y-6 px-4">
         <div class="flex flex-col space-y-2 text-center">
-          <h1 class="text-xl font-medium tracking-tight">Login</h1>
+          <h1 class="text-xl font-medium tracking-tight">{{ title }}</h1>
           <p class="text-sm opacity-80">
-            <span class="">Welcome back!</span>
+            <span class="">{{ description }}</span>
           </p>
         </div>
         <slot />

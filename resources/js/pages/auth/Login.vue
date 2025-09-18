@@ -19,7 +19,7 @@ defineProps<{
 </script>
 
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
+    <AuthBase title="Please enter your credentials" description="Enter your credentials below to track the status of your project">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
@@ -34,16 +34,16 @@ defineProps<{
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="identifier">Login ID</Label>
                     <Input
-                        id="reference_number"
+                        id="identifier"
                         type="text"
-                        name="reference_number"
+                        name="identifier"
                         required
                         autofocus
                         :tabindex="1"
                         autocomplete="email"
-                        placeholder="email@example.com"
+                        placeholder="Enter email/reference number"
                     />
                     <InputError :message="errors.email" />
                 </div>
@@ -77,11 +77,11 @@ defineProps<{
                     Log in
                 </Button>
             </div>
-
+<!-- 
             <div class="text-center text-sm text-muted-foreground">
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
-            </div>
+            </div> -->
         </Form>
     </AuthBase>
 </template>

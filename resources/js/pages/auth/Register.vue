@@ -6,70 +6,132 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { login } from '@/routes';
-import { Form, Head } from '@inertiajs/vue3';
+import { login, register } from '@/routes';
+import { Form, Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { Roles } from '@/types';
+import { onMounted } from 'vue';
+import { usePage  } from '@inertiajs/vue3';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import password from '@/routes/password';
+
+import { type BreadcrumbItem } from '@/types';
+import AppLayout from '@/layouts/AppLayout.vue';
+interface Props {
+    roles: Roles[];
+}
+const props=defineProps<Props>();
+
+const page = usePage()
+// Explicitly grab roles, fallback to empty array
+const roles = (page.props.auth as any)?.roles ?? []
+// Ensure it's a real array (handles Laravel collections)
+const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
+const isSuperAdmin =  roleList.includes('super-admin')
+const form = useForm({
+    role: null,
+    reference_number: '', 
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+})
+
 </script>
 
 <template>
-    <AuthBase title="Create an account" description="Enter your details below to create your account">
-        <Head title="Register" />
+    <!-- <AuthBase title="Create an account" description="Fill in the details below to create an account">
+        <Head title="Register" /> -->
 
-        <Form
-            v-bind="RegisteredUserController.store.form()"
-            :reset-on-success="['password', 'password_confirmation']"
-            v-slot="{ errors, processing }"
-            class="flex flex-col gap-6"
-        >
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="reference_number">Reference Number</Label>
-                    <Input id="reference_number" type="reference_number" required 
-                        :tabindex="2" autocomplete="reference_number" name="reference_number" placeholder="Enter reference number" />
-                    <InputError :message="errors.email" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="name">Name</Label>
-                    <Input id="name" type="text" required autofocus :tabindex="1" autocomplete="name" name="name" placeholder="Full name" />
-                    <InputError :message="errors.name" />
-                </div>
+    <Head title="Dashboard" />
 
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input id="email" type="email" required :tabindex="2" autocomplete="email" name="email" placeholder="email@example.com" />
-                    <InputError :message="errors.email" />
-                </div>
+    <AppLayout>
+        <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+            <div class="w-full max-w-md bg-white shadow-md rounded-xl p-6">
 
-                <div class="grid gap-2">
-                    <Label for="password">Password</Label>
-                    <Input id="password" type="password" required :tabindex="3" autocomplete="new-password" name="password" placeholder="Password" />
-                    <InputError :message="errors.password" />
-                </div>
+                <Form
+                    :action="route('register')"
+                    method="post"
+                    :reset-on-success="['password', 'password_confirmation']"
+                    v-slot="{ errors, processing }"
+                    class="flex flex-col gap-6"
+                >
+                    <div class="grid gap-6">
+                        <div class="grid gap-2">
+                            <Label for="reference_number">Reference Number</Label>
+                            <Input id="reference_number" type="reference_number" v-model="form.reference_number" required autofocus
+                                :tabindex="1" autocomplete="reference_number" name="reference_number" placeholder="Enter reference number" />
+                            <InputError :message="errors.reference_number" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="name">Name</Label>
+                            <Input id="name" type="text" required 
+                                v-model="form.name"
+                                :tabindex="2" autocomplete="name" name="name" placeholder="Full name" />
+                            <InputError :message="errors.name" />
+                        </div>
+                        <div class="grid gap-w" v-if="isSuperAdmin">
+                            <Label for="role">Role</Label>
+                            <Select  v-model="form.role" name="role" id="role">
+                                <SelectTrigger class="w-full">
+                                    <SelectValue placeholder="Select a role" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Roles</SelectLabel>
+                                    <SelectItem :tabindex="3" v-for="(item, index) in props.roles" :value="item.id">
+                                        {{ item.name }}
+                                    </SelectItem>
+                                </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <InputError :message="errors.role" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="email">Email address</Label>
+                            <Input v-model="form.email" id="email" type="email" required :tabindex="3" autocomplete="email" name="email" placeholder="email@example.com" />
+                            <InputError :message="errors.email" />
+                        </div>
 
-                <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
-                    <Input
-                        id="password_confirmation"
-                        type="password"
-                        required
-                        :tabindex="4"
-                        autocomplete="new-password"
-                        name="password_confirmation"
-                        placeholder="Confirm password"
-                    />
-                    <InputError :message="errors.password_confirmation" />
-                </div>
+                        <div class="grid gap-2">
+                            <Label for="password">Password</Label>
+                            <Input v-model="form.password" id="password" type="password" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
+                            <InputError :message="errors.password" />
+                        </div>
 
-                <Button type="submit" class="mt-2 w-full" tabindex="5" :disabled="processing">
-                    <LoaderCircle v-if="processing" class="h-4 w-4 animate-spin" />
-                    Create account
-                </Button>
+                        <div class="grid gap-2">
+                            <Label for="password_confirmation">Confirm password</Label>
+                            <Input
+                                v-model="form.password_confirmation"
+                                id="password_confirmation"
+                                type="password"
+                                required
+                                :tabindex="5"
+                                autocomplete="new-password"
+                                name="password_confirmation"
+                                placeholder="Confirm password"
+                            />
+                            <InputError :message="errors.password_confirmation" />
+                        </div>
+
+                        <Button type="submit" class="mt-2 w-full" tabindex="6" :disabled="processing">
+                            <LoaderCircle v-if="processing" class="h-4 w-4 animate-spin" />
+                            Create account
+                        </Button>
+                    </div>
+
+                   
+                </Form>
             </div>
-
-            <div class="text-center text-sm text-muted-foreground">
-                Already have an account?
-                <TextLink :href="login()" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
-            </div>
-        </Form>
-    </AuthBase>
+        </div>
+    </AppLayout>
+    <!-- </AuthBase> -->
 </template>

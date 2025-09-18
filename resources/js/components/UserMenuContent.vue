@@ -6,6 +6,8 @@ import { edit } from '@/routes/profile';
 import type { User } from '@/types';
 import { Link, router } from '@inertiajs/vue3';
 import { LogOut, Settings } from 'lucide-vue-next';
+import { usePage } from '@inertiajs/vue3';
+import { UserPlus } from 'lucide-vue-next';
 
 interface Props {
     user: User;
@@ -16,6 +18,14 @@ const handleLogout = () => {
 };
 
 defineProps<Props>();
+
+
+const page = usePage()
+// Explicitly grab roles, fallback to empty array
+const roles = (page.props.auth as any)?.roles ?? []
+// Ensure it's a real array (handles Laravel collections)
+const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
+const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
 </script>
 
 <template>
@@ -27,9 +37,20 @@ defineProps<Props>();
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
         <DropdownMenuItem :as-child="true">
-            <Link class="block w-full" :href="edit()" prefetch as="button">
+            <Link v-if="isAdmin" class="block w-full" :href="edit()" prefetch as="button">
                 <Settings class="mr-2 h-4 w-4" />
                 Settings
+            </Link>
+            <Link v-else class="block w-full" :href="route('password.edit')" prefetch as="button">
+                <Settings class="mr-2 h-4 w-4" />
+                Update Password
+            </Link>
+        </DropdownMenuItem>
+        
+        <DropdownMenuItem v-if="isAdmin" :as-child="true">
+            <Link v-if="isAdmin" class="block w-full" :href="route('register')" prefetch as="button">
+                <UserPlus class="mr-2 h-4 w-4" />
+                Add user
             </Link>
         </DropdownMenuItem>
     </DropdownMenuGroup>

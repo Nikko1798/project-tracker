@@ -2,14 +2,19 @@
     <div class="grid grid-cols-1 gap-4 shadow-md p-4 rounded-lg">
         
         <div class="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-4">
-            <div>
+            <div class="order-2 lg:order-1">
                 <p><b>{{ props.pisData[0]?.reference_number }}</b></p>
                 <sub class="text-gray-600">{{ props.pisData[0]?.proponent_name }}</sub>
             </div>
-
-            <div class="flex items-center text-sm text-green-600 items-end">
-                <CircleCheckBig class="w-4 h-4 mr-2" />
-                <span>{{ props.pisData[0]?.statusName }}</span>
+            
+            <div class="grid grid-cols-[20%_80%] order-1 lg:order-2">
+                <div class="flex items-center text-sm items-end text-gray-600">
+                    <p>STATUS: </p>
+                </div>
+                <div class="flex items-center text-sm text-green-600 items-end">
+                    <CircleCheckBig class="w-4 h-4 mr-2" />
+                    <span>{{ props.pisData[0]?.statusName }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -96,7 +101,7 @@ import { CircleCheckBig } from 'lucide-vue-next';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 const props=defineProps({
      pisData: {
-        type: Array as PropType<Record<string, any>[]>, 
+        type: Array as PropType<Record<string, any>>, 
         default: () => [],
     },
 })
