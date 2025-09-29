@@ -20,7 +20,6 @@ const props=defineProps({
     },
 })
 onMounted(()=>{
-    console.log(toRaw(props.pisData.status))
 })
 </script>
 
@@ -29,7 +28,7 @@ onMounted(()=>{
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4" >
-            <VisitorView v-if="props.pisData.status!='404'" :pisData="pisData"/>
+            <VisitorView v-if="props.pisData?.status!='404'" :pisData="pisData"/>
             
             <div v-else class="grid grid-cols-1 gap-4 text-center">
                 <div class="order-2 lg:order-1 mt-4 flex items-center justify-center gap-2">

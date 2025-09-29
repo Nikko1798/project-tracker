@@ -8,6 +8,7 @@ import { Link, router } from '@inertiajs/vue3';
 import { LogOut, Settings } from 'lucide-vue-next';
 import { usePage } from '@inertiajs/vue3';
 import { UserPlus } from 'lucide-vue-next';
+import { route } from 'ziggy-js';
 
 interface Props {
     user: User;
@@ -56,9 +57,9 @@ const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
-        <Link class="block w-full" :href="logout()" @click="handleLogout" as="button">
-            <LogOut class="mr-2 h-4 w-4" />
-            Log out
-        </Link>
+            <Link class="block w-full" :href="route('logout')" method="post" @click="handleLogout" as="button">
+                <LogOut class="mr-2 h-4 w-4" />
+                Log out
+            </Link>
     </DropdownMenuItem>
 </template>

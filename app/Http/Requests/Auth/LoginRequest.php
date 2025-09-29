@@ -57,7 +57,7 @@ class LoginRequest extends FormRequest
         $user=self::getuserData();
         if (! $user) {
             throw ValidationException::withMessages([
-                'reference_number' => trans('auth.failed'),
+                'auth_error' => trans('auth.failed'),
         ]);
     }
         if (! Auth::attempt([
@@ -67,7 +67,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'reference_number' => trans('auth.failed'),
+                'auth_error' => trans('auth.failed'),
             ]);
         }
 
