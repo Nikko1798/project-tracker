@@ -8,6 +8,17 @@ import { edit as editPassword } from '@/routes/password';
 import { edit } from '@/routes/profile';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
+import { onMounted, toRaw } from 'vue';
+
+import { usePage } from '@inertiajs/vue3'
+
+
+const page = usePage()
+// Explicitly grab roles, fallback to empty array
+const roles = (page.props.auth as any)?.roles ?? []
+// Ensure it's a real array (handles Laravel collections)
+const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
+const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -23,7 +34,12 @@ const sidebarNavItems: NavItem[] = [
         href: appearance(),
     },
 ];
-
+const sidebarNavItemsForVisitor: NavItem[] = [
+    {
+        title: 'Password',
+        href: editPassword(),
+    },
+];
 const currentPath = typeof window !== undefined ? window.location.pathname : '';
 </script>
 
@@ -35,6 +51,7 @@ const currentPath = typeof window !== undefined ? window.location.pathname : '';
             <aside class="w-full max-w-xl lg:w-48">
                 <nav class="flex flex-col space-y-1 space-x-0">
                     <Button
+                        v-if="isAdmin"
                         v-for="item in sidebarNavItems"
                         :key="toUrl(item.href)"
                         variant="ghost"
@@ -43,6 +60,19 @@ const currentPath = typeof window !== undefined ? window.location.pathname : '';
                     >
                         <Link :href="item.href">
                             {{ item.title }}
+                        </Link>
+                    </Button>
+
+                     <Button
+                        v-else
+                        v-for="itm in sidebarNavItemsForVisitor"
+                        :key="toUrl(itm.href)"
+                        variant="ghost"
+                        :class="['w-full justify-start', { 'bg-muted': urlIsActive(itm.href, currentPath) }]"
+                        as-child
+                    >
+                        <Link :href="itm.href">
+                            {{ itm.title }}
                         </Link>
                     </Button>
                 </nav>

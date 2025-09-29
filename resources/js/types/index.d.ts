@@ -12,7 +12,7 @@ export interface BreadcrumbItem {
 
 export interface NavItem {
     title: string;
-    href: NonNullable<InertiaLinkProps['href']>;
+    href: string;
     icon?: LucideIcon;
     isActive?: boolean;
 }
@@ -35,3 +35,8 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface Roles{
+    id: number;
+    name: string;
+}
