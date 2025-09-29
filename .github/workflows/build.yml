@@ -50,4 +50,4 @@ jobs:
         git config --global user.name "Nikko Niel Zamora"
         git add -f public/build  # Force add the ignored build directory
         git commit -m "Build assets for production"
-        git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Nikko1798/likha.git HEAD:main
+        git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Nikko1798/project-tracker.git HEAD:main
