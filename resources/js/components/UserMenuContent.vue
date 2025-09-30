@@ -38,7 +38,7 @@ const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
         <DropdownMenuItem :as-child="true">
-            <Link v-if="isAdmin" class="block w-full" :href="edit()" prefetch as="button">
+            <Link v-if="isAdmin" class="block w-full" :href="route('profile.edit')" prefetch as="button">
                 <Settings class="mr-2 h-4 w-4" />
                 Settings
             </Link>
