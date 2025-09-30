@@ -11,6 +11,7 @@ import { Link } from '@inertiajs/vue3';
 import { onMounted, toRaw } from 'vue';
 
 import { usePage } from '@inertiajs/vue3'
+import { route } from 'ziggy-js';
 
 
 const page = usePage()
@@ -23,21 +24,21 @@ const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
-        href: edit(),
+        href: 'profile.edit',
     },
     {
         title: 'Password',
-        href: editPassword(),
+        href: 'password.edit',
     },
-    {
-        title: 'Appearance',
-        href: appearance(),
-    },
+    // {
+    //     title: 'Appearance',
+    //     href: 'appearance',
+    // },
 ];
 const sidebarNavItemsForVisitor: NavItem[] = [
     {
         title: 'Password',
-        href: editPassword(),
+        href: 'password.edit',
     },
 ];
 const currentPath = typeof window !== undefined ? window.location.pathname : '';
@@ -58,7 +59,7 @@ const currentPath = typeof window !== undefined ? window.location.pathname : '';
                         :class="['w-full justify-start', { 'bg-muted': urlIsActive(item.href, currentPath) }]"
                         as-child
                     >
-                        <Link :href="item.href">
+                        <Link :href="route(item.href)">
                             {{ item.title }}
                         </Link>
                     </Button>
