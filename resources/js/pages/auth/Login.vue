@@ -10,6 +10,7 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { route } from 'ziggy-js';
+import { onMounted } from 'vue';
 defineProps<{
     status?: string;
     canResetPassword: boolean;
@@ -26,6 +27,10 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+onMounted(()=>{
+    const appUrl = import.meta.env.VITE_BASE_URL;
+console.log(appUrl); // https://example.com
+})
 const page=usePage() as any;
 </script> 
 
