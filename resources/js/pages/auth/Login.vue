@@ -35,8 +35,22 @@ const page=usePage() as any;
 </script> 
 
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
+    <AuthBase title="" description="">
         <Head title="Log in" />
+        <div class="flex flex-col items-center justify-center">
+            <p class="text-center font-cubao text-6xl">
+                <span class="text-red-600">W</span>
+                <span class="text-green-600">E</span>
+                <span class="text-orange-600">L</span>
+                <span class="text-blue-600">C</span>
+                <span class="text-yellow-500">O</span>
+                <span class="text-pink-600">M</span>
+                <span class="text-violet-600">E</span>
+            </p>
+            <p class=" text-sm text-gray-600">
+                Please enter your credentials below to login
+            </p>
+        </div>
 
 
         <div v-if="page.props.errors.auth_error">
@@ -52,7 +66,7 @@ const page=usePage() as any;
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">Login ID</Label>
                     <Input
                         id="email"
                         type="text"
@@ -60,7 +74,7 @@ const page=usePage() as any;
                         autofocus
                         :tabindex="1"
                         v-model="form.identifier"
-                        placeholder="email@example.com"
+                        placeholder="Enter your login id here..."
                     />
                     <InputError :message="form.errors.identifier" />
                 </div>
@@ -95,11 +109,6 @@ const page=usePage() as any;
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Log in
                 </Button>
-            </div>
-
-            <div class="text-center text-sm text-muted-foreground">
-                Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
             </div>
         </form>
     </AuthBase>
