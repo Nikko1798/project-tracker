@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import RegisteredUserController from '@/actions/App/Http/Controllers/Auth/RegisteredUserController';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
@@ -25,12 +26,13 @@ import password from '@/routes/password';
 
 import { type BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { route } from 'ziggy-js';
 interface Props {
     roles: Roles[];
 }
 const props=defineProps<Props>();
 
-const page = usePage()
+const page = usePage() as any;
 // Explicitly grab roles, fallback to empty array
 const roles = (page.props.auth as any)?.roles ?? []
 // Ensure it's a real array (handles Laravel collections)
@@ -44,7 +46,6 @@ const form = useForm({
     password: '',
     password_confirmation: ''
 })
-
 </script>
 
 <template>
@@ -57,6 +58,26 @@ const form = useForm({
         <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
             <div class="w-full max-w-md bg-white shadow-md rounded-xl p-6">
 
+                <div v-if="page.props.flash.success">
+                    <Alert class="border-green-500 text-green-700 bg-green-50 mb-5">
+                        <AlertCircle class="w-4 h-4 text-green-700" />
+                        <AlertTitle>Success!!</AlertTitle>
+                        <AlertDescription>
+                            {{ page.props.flash.success }}
+                        </AlertDescription>
+                    </Alert>
+                </div>
+
+                <div v-if="page.props.flash.error" class="mb-5">
+                    <Alert variant="destructive">
+                        <AlertCircle class="w-4 h-4" />
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>
+                            {{ page.props.flash.error }}
+                        </AlertDescription>
+                    </Alert>
+                </div>
+
                 <Form
                     :action="route('register')"
                     method="post"
@@ -67,7 +88,7 @@ const form = useForm({
                     <div class="grid gap-6">
                         <div class="grid gap-2">
                             <Label for="reference_number">Reference Number</Label>
-                            <Input id="reference_number" type="reference_number" v-model="form.reference_number" required autofocus
+                            <Input id="reference_number" type="reference_number" v-model="form.reference_number" autofocus
                                 :tabindex="1" autocomplete="reference_number" name="reference_number" placeholder="Enter reference number" />
                             <InputError :message="errors.reference_number" />
                         </div>
