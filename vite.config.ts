@@ -4,10 +4,9 @@ import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig, loadEnv } from 'vite';
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
 export default defineConfig({
     
-    base: baseUrl,
+    base: '/project-tracking/build/',
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],
