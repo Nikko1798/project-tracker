@@ -41,45 +41,52 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        return DB::transaction(function () use ($request) {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            ]);
-            if (Auth::user()->hasRole('super-admin')) {
-                $rules['role'] = ['required', 'integer'];
-                $rules['reference_number'] = ['nullable|string|max:255|unique:'.ReferenceNumber::class];
-                
-            } else {
-                $rules['role'] = ['nullable', 'integer']; // optional for others
-                $rules['reference_number'] = ['required|string|max:255|unique:'.ReferenceNumber::class];
-            }
+        try{
+            return DB::transaction(function () use ($request) {
+                $request->validate([
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
+                if (Auth::user()->hasRole('super-admin')) {
+                    $rules['role'] = ['required', 'integer'];
+                    $rules['reference_number'] = ['nullable|string|max:255|unique:'.ReferenceNumber::class];
+                    
+                } else {
+                    $rules['role'] = ['nullable', 'integer']; // optional for others
+                    $rules['reference_number'] = ['required|string|max:255|unique:'.ReferenceNumber::class];
+                }
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            $user->reference_numbers()->createMany([
-                ['reference_number' => $request->reference_number],
-            ]);
-            
-            if(Auth::user()->hasRole('super-admin'))
-            {
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+                $user->reference_numbers()->createMany([
+                    ['reference_number' => $request->reference_number],
+                ]);
                 
-                $role = Role::findById($request->role);
-                $user->assignRole($role);
-            }
-            else{
-                
-                $user->assignRole('visitor');
-            }
-            event(new Registered($user));
+                if(Auth::user()->hasRole('super-admin'))
+                {
+                    
+                    $role = Role::findById($request->role);
+                    $user->assignRole($role);
+                }
+                else{
+                    
+                    $user->assignRole('visitor');
+                }
+                event(new Registered($user));
 
-            Auth::login($user);
+                // Auth::login($user);
 
-            return to_route('dashboard');
-        });
+                return to_route('register')->with('success', 'The user account for ' . $user->name . ' has been successfully created.');
+            });
+        }
+        catch(Exception $e)
+        {
+             return to_route('register')->with('error', $e->getMessage());
+          
+        }
     }
 }
