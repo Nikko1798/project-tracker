@@ -6,7 +6,7 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig({
     
-    base: '/project-tracker/',
+    base: '/project-tracker/build/',
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],
