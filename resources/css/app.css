@@ -220,3 +220,11 @@
  .font-cubao {
     font-family: "CubaoRegular", sans-serif;
   }
+
+  .button-submit{
+    background-color: #0514a3 !important;
+  }
+  .button-submit:hover{
+    background-color: #2e3cbf !important;
+    cursor: pointer;
+  }
