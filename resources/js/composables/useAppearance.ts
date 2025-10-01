@@ -11,7 +11,7 @@ export function updateTheme(value: Appearance) {
         // const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         // const systemTheme = mediaQueryList.matches ? 'dark' : 'light';
 
-        document.documentElement.classList.toggle('dark');
+        document.documentElement.classList.remove('dark');
     } else {
         document.documentElement.classList.toggle('dark', value === 'dark');
     }

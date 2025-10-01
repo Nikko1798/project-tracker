@@ -64,7 +64,7 @@ const page = usePage() as any
                 </div>
                 <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
         
-                <form @submit.prevent="submit" >
+                <form @submit.prevent="submit"  class="space-y-4">
                     <div class="grid gap-2">
                         <Label for="current_password">Current password</Label>
                         <Input
@@ -108,7 +108,7 @@ const page = usePage() as any
                     </div>
 
                     <div class="flex items-center gap-4">
-                         <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
+                         <Button type="submit" class="mt-4 w-full button-submit" :tabindex="4" :disabled="form.processing">
                             <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                             Log in
                         </Button>
