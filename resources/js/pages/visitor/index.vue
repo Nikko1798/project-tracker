@@ -72,10 +72,10 @@
                                 day: 'numeric' 
                             }) : "" }}</p>
                         </AccordionTrigger>
-                        <AccordionContent>
+                        <AccordionContent class="bg-gray-200 p-2 rounded-md mb-2">
                             <div class="space-y-2">
                                 <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
-                                    <p class="text-gray-600 text-sm"><b>Revised Project Title: </b></p>
+                                    <p class="text-gray-600 text-sm"><b>Project Title: </b></p>
                                     <p class="text-gray-600 text-sm">{{ item?.revised_project_title }}</p>
                                 </div>
                                 <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
