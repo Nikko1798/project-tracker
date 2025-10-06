@@ -12,9 +12,16 @@ class ApiService
         $this->pisApiRepo=$pisApiRepo;
     }
     public function getPisApiData(){
-        $value = Cache::remember('pisData', 30, function () {
-            return $this->pisApiRepo->getProjectInformation()->json();
-        });
-        return $value;
+        try{
+            
+            $value = Cache::remember('pisApiData', 30, function () {
+                return $this->pisApiRepo->getProjectInformation()->json();
+            });
+            return $value;
+        
+        }
+        catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }
