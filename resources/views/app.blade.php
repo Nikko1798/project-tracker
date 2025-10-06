@@ -31,7 +31,8 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Tracker') }}</title>
+        <!-- <title inertia>{{ config('app.name', 'Tracker') }}</title> -->
+         <title>National Commission for Culture and the Arts - Project Status Tracker</title>
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
