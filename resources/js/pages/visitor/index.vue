@@ -72,6 +72,7 @@
                                 day: 'numeric' 
                             }) : "" }}</p>
                         </AccordionTrigger>
+                        
                         <AccordionContent class="bg-gray-200 p-4 rounded-md mb-2">
                             <div class="space-y-2">
                                 <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
