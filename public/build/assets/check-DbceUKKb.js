@@ -1,0 +1,6 @@
+import{t as r,b as t}from"./useForwardExpose-BWdNqieJ.js";import{q as d,d as i,f as s,o,w as l,s as n,u}from"./app-Bfwz6QTM.js";import{P as p,c as f}from"./createLucideIcon-CgEvBhH6.js";function v(a){return d(()=>r(a)?!!t(a)?.closest("form"):!0)}var c=i({__name:"VisuallyHidden",props:{feature:{type:String,required:!1,default:"focusable"},asChild:{type:Boolean,required:!1},as:{type:null,required:!1,default:"span"}},setup(a){return(e,h)=>(o(),s(u(p),{as:e.as,"as-child":e.asChild,"aria-hidden":e.feature==="focusable"?"true":void 0,"data-hidden":e.feature==="fully-hidden"?"":void 0,tabindex:e.feature==="fully-hidden"?"-1":void 0,style:{position:"absolute",border:0,width:"1px",height:"1px",padding:0,margin:"-1px",overflow:"hidden",clip:"rect(0, 0, 0, 0)",clipPath:"inset(50%)",whiteSpace:"nowrap",wordWrap:"normal"}},{default:l(()=>[n(e.$slots,"default")]),_:3},8,["as","as-child","aria-hidden","data-hidden","tabindex"]))}}),C=c;/**
+ * @license lucide-vue-next v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const b=f("CheckIcon",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]);export{b as C,C as V,v as u};
