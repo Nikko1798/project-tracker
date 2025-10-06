@@ -8,7 +8,6 @@
             </div>
 
             <div>
-                <span>STATUS</span>
                 <div class="flex items-center text-sm text-green-600 items-center md:text-3xl">
                     <CircleCheckBig class="md:w-8 md:h-8 w-4 h-4 mr-2" />
                     <span >{{ props.pisData[0]?.statusName }}</span>
