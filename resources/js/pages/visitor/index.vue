@@ -7,9 +7,12 @@
                 <sub class="text-gray-600">{{ props.pisData[0]?.proponent_name }}</sub>
             </div>
 
-            <div class="flex items-center text-sm text-green-600 items-end">
-                <CircleCheckBig class="w-4 h-4 mr-2" />
-                <span>{{ props.pisData[0]?.statusName }}</span>
+            <div>
+                <span>STATUS</span>
+                <div class="flex items-center text-sm text-green-600 items-center md:text-3xl">
+                    <CircleCheckBig class="md:w-8 md:h-8 w-4 h-4 mr-2" />
+                    <span >{{ props.pisData[0]?.statusName }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -72,7 +75,7 @@
                                 day: 'numeric' 
                             }) : "" }}</p>
                         </AccordionTrigger>
-                        
+
                         <AccordionContent class="bg-gray-200 p-4 rounded-md mb-2">
                             <div class="space-y-2">
                                 <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
