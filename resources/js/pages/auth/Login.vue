@@ -39,13 +39,13 @@ const page=usePage() as any;
         <Head title="Log in" />
         <div class="flex flex-col items-center justify-center">
             <p class="text-center font-cubao text-6xl">
-                <span class="text-red-600">W</span>
-                <span class="text-green-600">E</span>
-                <span class="text-orange-600">L</span>
-                <span class="text-blue-600">C</span>
-                <span class="text-yellow-500">O</span>
-                <span class="text-pink-600">M</span>
-                <span class="text-violet-600">E</span>
+                <span class="text-red-600">M</span>
+                <span class="text-green-600">A</span>
+                <span class="text-orange-600">B</span>
+                <span class="text-blue-600">U</span>
+                <span class="text-yellow-500">H</span>
+                <span class="text-pink-600">A</span>
+                <span class="text-violet-600">Y</span>
             </p>
             <p class=" text-sm text-gray-600">
                 Please enter your credentials below to login
