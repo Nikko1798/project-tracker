@@ -26,8 +26,12 @@ const props = withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 });
 
-const page = usePage();
+const page = usePage() as any;
 const auth = computed(() => page.props.auth);
+
+const roles = (page.props.auth as any)?.roles ?? []
+const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
+const isAdmin = roleList.includes('admin') || roleList.includes('super-admin')
 
 const isCurrentRoute = computed(() => (url: NonNullable<InertiaLinkProps['href']>) => urlIsActive(url, page.url));
 
@@ -38,7 +42,7 @@ const activeItemStyles = computed(
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Project Details',
+        title: isAdmin ? 'Project Details' : 'Client Portal',
         href: 'dashboard',
         icon: LayoutGrid,
     },
@@ -60,7 +64,7 @@ const rightNavItems: NavItem[] = [
 
 <template>
     <div>
-        <div class="border-b border-sidebar-border/80 bg-blue-800">
+        <div class="border-b border-sidebar-border/80 bg-gradient-to-r from-[#2A52BE] to-[#007FFF]">
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <!-- Mobile Menu -->
                 <div class="lg:hidden">
