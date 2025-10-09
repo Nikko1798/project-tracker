@@ -31,7 +31,7 @@ const props=defineProps({
                             </div>
                              <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
                                 <p class="text-gray-600 text-sm"><b>Person Responsible: </b></p>
-                                <p class="text-gray-600 text-sm">{{ item?.remarks }}</p>
+                                <p class="text-gray-600 text-sm">{{ item?.full_name }}</p>
                             </div>
                         </div>
                     </AccordionContent>

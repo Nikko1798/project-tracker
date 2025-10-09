@@ -13,8 +13,10 @@
         <!-- Left column -->
         <div class="flex flex-col">
             <HeaderDetails :pisData="pisData" />
-            <ProjectDetails :pisData="pisData" />
             <ProponentDetails :pisData="pisData" />
+            <ProjectDetails :pisData="pisData" />
+            <!-- <ApprovedBudgetDetails :pisData="pisData" /> -->
+            
             <ResponsiblePersons :pisData="pisData" />
         </div>
 
@@ -32,6 +34,7 @@ import ProjectDetails from './ProjectDetails.vue';
 import HeaderDetails from './HeaderDetails.vue';
 import ProponentDetails from './ProponentDetails.vue';
 import ResponsiblePersons from './ResponsiblePersons.vue';
+import ApprovedBudgetDetails from './ApprovedBudgetDetails.vue';
 const props=defineProps({
      pisData: {
         type: Object as PropType<Record<string, any>>, 

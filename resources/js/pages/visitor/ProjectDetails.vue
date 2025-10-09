@@ -34,6 +34,12 @@ const props=defineProps({
                                     year: 'numeric', 
                                     month: 'long', 
                                     day: 'numeric' 
+                                }) : "" }} - 
+
+                                {{ props.pisData[0]?.implementation_date ? new Date(props.pisData[0]?.implementation_date).toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
                                 }) : "" }}
                         </p>
                     </div>
@@ -71,6 +77,11 @@ const props=defineProps({
                         <p class="text-gray-600 text-sm"><b>Project Location: </b></p>
                         <p class="text-gray-600 text-sm">{{ props.pisData[0]?.regionName }}</p>
                     </div>
+                    <div class="grid grid-cols-[40%_60%] lg:grid-cols-[40%_60%] gap-4">
+                        <p class="text-gray-600 text-sm"><b>Board Resolution: </b></p>
+                        <p class="text-gray-600 text-sm">{{ props.pisData[0]?.boardres_no }}</p>
+                    </div>
+                    
                 </div>
             </div>
            
