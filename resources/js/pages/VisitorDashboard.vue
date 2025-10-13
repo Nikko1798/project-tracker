@@ -28,7 +28,7 @@ onMounted(()=>{
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4" >
+        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-hidden rounded-xl " >
             <VisitorView v-if="props.pisData?.status!='404' && props.pisData" :pisData="pisData"/>
             
              <div v-else-if="!props.pisData" class="grid grid-cols-1 gap-4 text-center">

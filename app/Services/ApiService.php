@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\PisApiRepository;
 
@@ -14,7 +15,7 @@ class ApiService
     public function getPisApiData(){
         try{
             
-            $value = Cache::remember('pisApiData', 30, function () {
+            $value = Cache::remember('pisApiData'. Auth::user()->reference_numbers()->first(), 30, function () {
                 return $this->pisApiRepo->getProjectInformation()->json();
             });
             return $value;
