@@ -8,7 +8,7 @@ const props=defineProps({
 })
 </script>
 <template>
-    <div class="grid grid-cols-1 gap-4 shadow-xl p-4 rounded-lg">
+    <div class="grid grid-cols-1 gap-4 shadow-xl p-7 rounded-lg">
     
         <div class="h-auto">
              <div class="grid grid-cols-1 space-y-2 border-b-1 border-gray-200 pb-2 mb-4">
