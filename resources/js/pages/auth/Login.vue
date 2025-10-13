@@ -8,13 +8,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { LoaderCircle, Eye, EyeClosed } from 'lucide-vue-next';
 import { route } from 'ziggy-js';
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 defineProps<{
     status?: string;
     canResetPassword: boolean;
 }>();
+
+const ispassSecret = ref(true);
+const passType=computed(()=>{
+    return ispassSecret.value ? 'password' : 'text' ;
+});
+const showOrHidePass=(()=>{
+    ispassSecret.value= ispassSecret.value ? false : true;
+})
 
 const form = useForm({
     identifier: '',
@@ -86,15 +94,21 @@ const page=usePage() as any;
                             Forgot password?
                         </TextLink>
                     </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        required
-                        :tabindex="2"
-                        autocomplete="current-password"
-                        v-model="form.password"
-                        placeholder="Password"
-                    />
+                    <div class="relative">
+                        <Input
+                            id="password"
+                            :type="passType"
+                            required
+                            :tabindex="2"
+                            autocomplete="current-password"
+                            v-model="form.password"
+                            placeholder="Password"
+                        />
+                        <EyeClosed @click="showOrHidePass" v-if="ispassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                        <Eye @click="showOrHidePass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                           
+                    </div>
+
                     <InputError :message="form.errors.password" />
                 </div>
 
