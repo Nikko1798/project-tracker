@@ -9,8 +9,13 @@ use Illuminate\Support\Facades\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use App\Services\MailService;
 class PasswordResetLinkController extends Controller
 {
+    protected $mailService;
+    public function __construct(MailService $mailService){
+        $this->mailService=$mailService;
+    }
     /**
      * Show the password reset link request page.
      */
@@ -31,10 +36,11 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => 'required|email|exists:users,email',
         ]);
-
-        Password::sendResetLink(
-            $request->only('email')
-        );
+        
+        // Password::sendResetLink(
+        //     $request->only('email')
+        // );
+        $this->mailService->forgotPasswordMail($request->only('email'));
 
         return back()->with('status', __('A reset link will be sent if the account exists.'));
     }
