@@ -25,11 +25,11 @@ const props=defineProps({
 
                     <AccordionContent class="bg-gray-200 p-4 rounded-md mb-2">
                         <div class="space-y-2">
-                            <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4 border-b-1 border-dashed border-gray-500">
+                            <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4 border-b-1 border-dashed border-gray-500 pr-5">
                                 <p class="text-gray-600 text-sm"><b>Remarks: </b></p>
                                 <p class="text-gray-600 text-sm">{{ item?.remarks }}</p>
                             </div>
-                             <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
+                             <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4 pr-5">
                                 <p class="text-gray-600 text-sm"><b>Person Responsible: </b></p>
                                 <p class="text-gray-600 text-sm">{{ item?.full_name }}</p>
                             </div>
