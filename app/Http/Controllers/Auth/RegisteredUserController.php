@@ -90,7 +90,7 @@ class RegisteredUserController extends Controller
         }
         catch(Exception $e)
         {
-             return to_route('register')->with('error', $e->getMessage());
+            return to_route('register')->with('error', $e->getMessage());
           
         }
     }

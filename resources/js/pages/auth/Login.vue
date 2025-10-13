@@ -70,7 +70,15 @@ const page=usePage() as any;
                 </AlertDescription>
             </Alert>
         </div>
-
+        <div v-if="page.props.flash.success">
+            <Alert class="border-green-500 text-green-700 bg-green-50 mb-5">
+                <AlertCircle class="w-4 h-4 text-green-700" />
+                <AlertTitle>Success!!</AlertTitle>
+                <AlertDescription>
+                    {{ page.props.flash.success }}
+                </AlertDescription>
+            </Alert>
+        </div>
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
