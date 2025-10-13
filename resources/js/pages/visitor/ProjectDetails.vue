@@ -8,7 +8,7 @@ const props=defineProps({
 })
 const maxLength=300;
 const isExpanded=ref(false)
-const projectDesc=computed(() => props.pisData[0]?.brief_description ?? '')
+const projectDesc=computed(() => (props.pisData[0]?.brief_description ?? '').replace(/<[^>]*>/g, ''))
 const showProjectDescToggle = computed(() => projectDesc.value.length > maxLength)
 
 const truncatedProjectDesc = computed(() => {
