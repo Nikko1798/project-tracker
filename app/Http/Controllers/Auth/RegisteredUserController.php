@@ -15,11 +15,16 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use App\Services\MailService;
 class RegisteredUserController extends Controller
 {
     /**
      * Show the registration page.
      */
+    protected $mailService;
+    public function __construct(MailService $mailService){
+        $this->mailService=$mailService;
+    }
     public function create(): Response
     {
         
@@ -68,7 +73,6 @@ class RegisteredUserController extends Controller
                 
                 if(Auth::user()->hasRole('super-admin'))
                 {
-                    
                     $role = Role::findById($request->role);
                     $user->assignRole($role);
                 }
@@ -78,8 +82,9 @@ class RegisteredUserController extends Controller
                 }
                 event(new Registered($user));
 
-                // Auth::login($user);
 
+                // Auth::login($user);
+                $this->mailService->newUserCreated($request);
                 return to_route('register')->with('success', 'The user account for ' . $user->name . ' has been successfully created.');
             });
         }

@@ -9,9 +9,9 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login, register } from '@/routes';
 import { Form, Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { LoaderCircle, Eye, EyeClosed } from 'lucide-vue-next';
 import { Roles } from '@/types';
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { usePage  } from '@inertiajs/vue3';
 import {
   Select,
@@ -27,24 +27,47 @@ import password from '@/routes/password';
 import { type BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { route } from 'ziggy-js';
+
 interface Props {
     roles: Roles[];
 }
 const props=defineProps<Props>();
-
 const page = usePage() as any;
 // Explicitly grab roles, fallback to empty array
 const roles = (page.props.auth as any)?.roles ?? []
 // Ensure it's a real array (handles Laravel collections)
 const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
 const isSuperAdmin =  roleList.includes('super-admin')
+const ispassSecret = ref(true);
+const isConfirmpassSecret = ref(true);
+const passType=computed(()=>{
+    return ispassSecret.value ? 'password' : 'text' ;
+});
+const ConfirmpassType=computed(()=>{
+    return isConfirmpassSecret.value ? 'password' : 'text' ;
+});
+const showOrHidePass=(()=>{
+    ispassSecret.value= ispassSecret.value ? false : true;
+})
+const showOrHideConfirmPass=(()=>{
+    isConfirmpassSecret.value= isConfirmpassSecret.value ? false : true;
+})
+
+const randomPass=computed(()=>{
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&*_+?';
+    let result = '';
+    for (let i = 0; i < 14; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+})
 const form = useForm({
     role: null,
     reference_number: '', 
     name: '',
     email: '',
-    password: '',
-    password_confirmation: ''
+    password: randomPass.value,
+    password_confirmation: randomPass.value
 })
 </script>
 
@@ -124,22 +147,31 @@ const form = useForm({
 
                         <div class="grid gap-2">
                             <Label for="password">Password</Label>
-                            <Input v-model="form.password" id="password" type="password" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
+                            <div class="relative">
+                                <Input v-model="form.password" id="password" :type="passType" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
+                                
+                                <EyeClosed @click="showOrHidePass" v-if="ispassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <Eye @click="showOrHidePass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                            </div>
                             <InputError :message="errors.password" />
                         </div>
 
                         <div class="grid gap-2">
                             <Label for="password_confirmation">Confirm password</Label>
-                            <Input
-                                v-model="form.password_confirmation"
-                                id="password_confirmation"
-                                type="password"
-                                required
-                                :tabindex="5"
-                                autocomplete="new-password"
-                                name="password_confirmation"
-                                placeholder="Confirm password"
-                            />
+                            <div class="relative">
+                                <Input
+                                    v-model="form.password_confirmation"
+                                    id="password_confirmation"
+                                    :type="ConfirmpassType"
+                                    required
+                                    :tabindex="5"
+                                    autocomplete="new-password"
+                                    name="password_confirmation"
+                                    placeholder="Confirm password"
+                                />
+                                <EyeClosed @click="showOrHideConfirmPass" v-if="isConfirmpassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <Eye @click="showOrHideConfirmPass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                           </div>
                             <InputError :message="errors.password_confirmation" />
                         </div>
 
