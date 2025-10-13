@@ -1,11 +1,25 @@
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { PropType, ref, computed } from 'vue';
 const props=defineProps({
      pisData: {
         type: Object as PropType<Record<string, any>>, 
         default: () => [],
     },
 })
+const maxLength=300;
+const isExpanded=ref(false)
+const projectDesc=computed(() => props.pisData[0]?.brief_description ?? '')
+const showProjectDescToggle = computed(() => projectDesc.value.length > maxLength)
+
+const truncatedProjectDesc = computed(() => {
+    if (projectDesc.value.length > maxLength) {
+        return projectDesc.value.slice(0, maxLength) + '...'
+    }
+    return projectDesc.value
+});
+const toggleProjectDesc = () => {
+  isExpanded.value = !isExpanded.value
+}
 </script>
 <template>
     <div class="shadow-xl rounded-lg p-7">
@@ -24,7 +38,7 @@ const props=defineProps({
                     <div class="grid grid-cols-[40%_60%] lg:grid-cols-[50%_50%] gap-4">
                         <p class="text-gray-600 text-sm"><b>Project Cost: </b></p>
                         <p class="text-gray-600 text-sm">
-                            {{ Number(props.pisData[0]?.cost ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
+                            &#8369; {{ Number(props.pisData[0]?.cost ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
                         </p>
                     </div>
                     <div class="grid grid-cols-[40%_60%] lg:grid-cols-[50%_50%] gap-4">
@@ -47,7 +61,7 @@ const props=defineProps({
                     <div class="grid grid-cols-[40%_60%] lg:grid-cols-[50%_50%] gap-4">
                         <p class="text-gray-600 text-sm"><b>Counterpart Fund: </b></p>
                         <p class="text-gray-600 text-sm">
-                            {{ Number(props.pisData[0]?.amt_counterpart ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
+                            &#8369; {{ Number(props.pisData[0]?.amt_counterpart ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
                         </p>
                     </div>
                     <div class="grid grid-cols-[40%_60%] lg:grid-cols-[50%_50%] gap-4">
@@ -69,7 +83,7 @@ const props=defineProps({
                     <div class="grid grid-cols-[40%_60%] lg:grid-cols-[40%_60%] gap-4">
                         <p class="text-gray-600 text-sm"><b>Amount Requested: </b></p>
                         <p class="text-gray-600 text-sm">
-                            {{ Number(props.pisData[0]?.amt_requested ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
+                           &#8369; {{ Number(props.pisData[0]?.amt_requested ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
                         </p>
                     </div>
 
@@ -88,7 +102,12 @@ const props=defineProps({
 
             <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
                 <p class="text-gray-600 text-sm"><b>Project Description: </b></p>
-                <p class="text-gray-600 text-sm">{{ props.pisData[0]?.brief_description }}</p>
+                <p class="text-gray-600 text-sm">
+                    <!-- {{ props.pisData[0]?.brief_description }}  -->
+                      
+                    {{ isExpanded ? projectDesc : truncatedProjectDesc }}
+                    <span class="text-blue-600 cursor-pointer " v-if="showProjectDescToggle" @click="toggleProjectDesc">{{ isExpanded ? "See less" : "See more" }}..</span>
+                </p>
             </div>
         </div>
     </div>
