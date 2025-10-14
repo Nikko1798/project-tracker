@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-1 gap-4 shadow-xl p-4 rounded-lg ">
+    <div class="grid grid-cols-1 gap-4 shadow-xl p-4 rounded-lg border-b-6 border-[#007FFF]">
         <div class="flex flex-col items-center
          space-x-2 md:space-x-0">
             <span class="text-xs md:text-xs"><b>STATUS</b></span>
