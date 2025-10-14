@@ -42,7 +42,7 @@ const activeItemStyles = computed(
 
 const mainNavItems: NavItem[] = [
     {
-        title: isAdmin ? 'Project Details' : 'Client Portal',
+        title: isAdmin ? 'Home' : 'Client Portal',
         href: 'dashboard',
         icon: LayoutGrid,
     },

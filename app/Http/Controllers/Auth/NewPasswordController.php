@@ -8,23 +8,39 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
+
 class NewPasswordController extends Controller
 {
     /**
      * Show the password reset page.
      */
-    public function create(Request $request): Response
+    public function create(Request $request)//: Response
     {
-        return Inertia::render('auth/ResetPassword', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
-        ]);
+        if(DB::table('password_reset_tokens')->where('email', $request->email)->exists())
+        {
+            $tokensList=DB::table('password_reset_tokens')->where('email', $request->email)->first();
+            if($tokensList && Hash::check($request->route('token'), $tokensList->token))
+            {
+                return Inertia::render('auth/ResetPassword', [
+                    'email' => $request->email,
+                    'token' => $request->route('token'),
+                ]);
+
+            }
+            else{
+                abort (401, 'Oops! Your password reset link has expired. Please request a new one');
+            }
+        }
+        else{
+            abort(404, 'Oops! Your password reset link couldn’t be found — it may have expired. Please request a new one to continue.');
+        }
     }
 
     /**
