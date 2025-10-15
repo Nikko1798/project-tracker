@@ -11,18 +11,13 @@ import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { LoaderCircle, Eye, EyeClosed } from 'lucide-vue-next';
 import { route } from 'ziggy-js';
 import { onMounted, ref, computed } from 'vue';
+import { usePasswordToggle } from '@/composables/usePasswordToggle';
 defineProps<{
     status?: string;
     canResetPassword: boolean;
 }>();
+const {isPasswordHidden, inputType, togglePassword} = usePasswordToggle();
 
-const ispassSecret = ref(true);
-const passType=computed(()=>{
-    return ispassSecret.value ? 'password' : 'text' ;
-});
-const showOrHidePass=(()=>{
-    ispassSecret.value= ispassSecret.value ? false : true;
-})
 
 const form = useForm({
     identifier: '',
@@ -105,15 +100,15 @@ const page=usePage() as any;
                     <div class="relative">
                         <Input
                             id="password"
-                            :type="passType"
+                            :type="inputType"
                             required
                             :tabindex="2"
                             autocomplete="current-password"
                             v-model="form.password"
                             placeholder="Password"
                         />
-                        <EyeClosed @click="showOrHidePass" v-if="ispassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
-                        <Eye @click="showOrHidePass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                        <EyeClosed @click="togglePassword" v-if="isPasswordHidden" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                        <Eye @click="togglePassword" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
                            
                     </div>
 

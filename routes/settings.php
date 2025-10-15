@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\Settings\UserManagementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,4 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/Appearance');
     })->name('appearance');
+});
+
+
+Route::middleware('auth')->prefix('settings/user-mgmt')->group(function () {
+    Route::get('/', [UserManagementController::class, 'index'])->name('user-mgmt.index');
+    Route::get('/allUsers', [UserManagementController::class, 'allUsers'])->name('user-mgmt.all-users');
+    Route::patch('/resetPassword/{user}', [UserManagementController::class, 'resetPassword'])->name('user-mgmt.resetPassword');
+    
 });

@@ -30,6 +30,10 @@ const sidebarNavItems: NavItem[] = [
         title: 'Password',
         href: 'password.edit',
     },
+    {
+        title: 'User Management',
+        href: 'user-mgmt.index',
+    },
     // {
     //     title: 'Appearance',
     //     href: 'appearance',
@@ -81,8 +85,8 @@ const currentPath = typeof window !== undefined ? window.location.pathname : '';
 
             <Separator class="my-6 lg:hidden" />
 
-            <div class="flex-1 md:max-w-2xl">
-                <section class="max-w-xl space-y-12">
+            <div class="flex-1 ">
+                <section class=" ">
                     <slot />
                 </section>
             </div>

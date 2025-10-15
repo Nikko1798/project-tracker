@@ -42,7 +42,7 @@ const page = usePage() as any
         <Head title="Password settings" />
        
         <SettingsLayout>
-            <div class="space-y-6">
+            <div class="space-y-6 md:max-w-2xl">
                 <div v-if="page.props.flash.success">
                     <Alert class="border-green-500 text-green-700 bg-green-50">
                         <AlertCircle class="w-4 h-4 text-green-700" />
