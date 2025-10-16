@@ -107,6 +107,7 @@ import { ArrowUpDown } from 'lucide-vue-next'
     //trigger refresh of specific table base on event name
     eventBus.on(props.eventName, fetchData);
     onMounted(fetchData);
+   
     watch([query, currentPage, currSortBy, ascOrDesc, () => props.extraParams], debouncedFetchData, { deep: true }); //extraParams is an object (e.g., { status: 'active', type: 'urgent' }), Vue doesn’t detect changes inside it unless deep: true is used.
  
     watch(() => props.extraParams, () => {
@@ -124,6 +125,7 @@ import { ArrowUpDown } from 'lucide-vue-next'
     const goToPage=((page: any)=>{
         currentPage.value=page;
     })
+   
 </script>
 
 <template>
@@ -175,8 +177,10 @@ import { ArrowUpDown } from 'lucide-vue-next'
                     <TableRow v-else v-for="(item, rowIndex) in filteredTableData" :key="rowIndex">
                         <TableCell v-for="(column, colIndex) in visibleColumns" :key="colIndex">
                             <slot :name="`cell-${colIndex}`" :rowData="item.subItems">
+                               
                                 <span v-html="item[column]"></span>
                             </slot>
+                            
                         </TableCell>
                     </TableRow>
                 </TableBody>

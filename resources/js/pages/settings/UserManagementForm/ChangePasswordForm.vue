@@ -58,13 +58,13 @@ const form = useForm({
   <Dialog v-model:open="isModalOpen">
     <DialogTrigger>
       
-      <Button  class="bg-blue-500 cursor-pointer hover:bg-blue-700"><LockKeyhole></LockKeyhole>Reset Password</Button>
+      <Button size="sm" class="text-xs button-submit"><LockKeyhole></LockKeyhole>Reset Password</Button>
     </DialogTrigger>
     <DialogContent v-if="isModalOpen">
       <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
+        <DialogTitle>Password Reset</DialogTitle>
         <DialogDescription>
-          Make changes to your profile here. Click save when you're done.
+          Reset user password here. Click save when you're done.
         </DialogDescription>
       </DialogHeader>
       <form @submit.prevent="submit"  class="space-y-4">

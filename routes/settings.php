@@ -29,5 +29,7 @@ Route::middleware('auth')->prefix('settings/user-mgmt')->group(function () {
     Route::get('/', [UserManagementController::class, 'index'])->name('user-mgmt.index');
     Route::get('/allUsers', [UserManagementController::class, 'allUsers'])->name('user-mgmt.all-users');
     Route::patch('/resetPassword/{user}', [UserManagementController::class, 'resetPassword'])->name('user-mgmt.resetPassword');
+    Route::patch('/updateUserProfile/{user}', [UserManagementController::class, 'updateUserProfile'])->name('user-mgmt.updateUserProfile');
+    Route::patch('/referenceNumbers/{user}', [UserManagementController::class, 'getUserReferenceNumber'])->name('user-mgmt.referenceNumbers');
     
 });

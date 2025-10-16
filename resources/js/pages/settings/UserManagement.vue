@@ -17,6 +17,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { route } from 'ziggy-js';
 import Datatable from '@/components/Datatable.vue';
 import ChangePasswordForm from './UserManagementForm/ChangePasswordForm.vue';
+import UpdateProfileForm from './UserManagementForm/UpdateProfileForm.vue';
+import axios from 'axios'
+import { ref } from 'vue';
 interface Props {
     mustVerifyEmail: boolean;
     status?: string;
@@ -37,10 +40,23 @@ const form = useForm({
     name: user?.name,
     email: user?.email,
 });
-const submit = () => {
-    form.patch(route('profile.update'), {
-    });
-};
+const result=ref<Record<number, string>>({});
+const getReferenceNumbers=(async ($userId: any)=>{
+    const response =  await axios.patch(route('user-mgmt.updateUserProfile', $userId),{
+    
+    }); 
+    const mappedItems=response.data.map((item: any)=>{
+        return item.id;
+    })
+    result.value = mappedItems;
+})
+function isArrayOfObjects(arr: any) {
+    return Array.isArray(arr) && arr.length > 0 && typeof arr[0] === 'object';
+}
+
+function isArrayOfPrimitives(arr: any) {
+    return Array.isArray(arr) && arr.length > 0 && typeof arr[0] !== 'object';
+}
 </script>
 
 <template>
@@ -54,7 +70,7 @@ const submit = () => {
                     :apiUrl="route('user-mgmt.all-users')" 
                     :extraParams="{}"
                     :tableHeaders="[]"
-                    :visible-columns="['id', 'name','email', 'id']" 
+                    :visible-columns="['id', 'name','email', 'referenceNumbers', 'actions']" 
                     :sortableColumns="['name', 'email']"
                     :itemsPerPage="1"
                     eventName="refresh-user-table">
@@ -67,10 +83,28 @@ const submit = () => {
                         <template #header-email>
                             <div class="text-white">Email</div>
                         </template>
+                        <template #header-referenceNumbers>
+                            <div class="text-white">Ref#</div>
+                        </template>
+                         <template #header-actions>
+                            <div class="text-white">Actions</div>
+                        </template>
 
                         <template #cell-3="{rowData}">
-                            <ChangePasswordForm :UserId="rowData.id"/>
+                            <div class="space-x-2">
+                                <!-- <span v-for="(item in rowData.reference_numbers)">{{ item.reference_number }}</span> -->
+                                    <span v-for="ref in rowData.reference_numbers" :key="ref.id">
+                                        {{ ref.reference_number }}
+                                    </span>
+                            </div>
                         </template>
+                        <template #cell-4="{rowData}">
+                            <div class="space-x-2" >
+                                <ChangePasswordForm :UserId="rowData.id"/>
+                                <UpdateProfileForm :UserData="rowData"/>
+                            </div>
+                        </template>
+                        
                 </Datatable>
             
 

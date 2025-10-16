@@ -222,9 +222,9 @@
   }
 
   .button-submit{
-    background-color: #0514a3 !important;
+    background-color: #007FFF !important;
   }
   .button-submit:hover{
-    background-color: #2e3cbf !important;
+    background-color: #2A52BE !important;
     cursor: pointer;
   }
