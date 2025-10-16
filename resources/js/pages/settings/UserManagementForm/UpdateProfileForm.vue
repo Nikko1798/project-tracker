@@ -101,7 +101,7 @@ const form = useForm({
                 <DialogFooter>
                     <Button type="submit" 
                         class="bg-blue-500 cursor-pointer hover:bg-blue-700">
-                        <CheckCheckIcon></CheckCheckIcon>Update Password
+                        <CheckCheckIcon></CheckCheckIcon>Update
                     </Button>
                 </DialogFooter>
             
