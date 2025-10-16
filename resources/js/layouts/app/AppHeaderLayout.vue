@@ -2,6 +2,7 @@
 import AppContent from '@/components/AppContent.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppShell from '@/components/AppShell.vue';
+import logo from '@/assets/images/Logo2.png';
 import type { BreadcrumbItemType } from '@/types';
 
 interface Props {
@@ -18,6 +19,7 @@ withDefaults(defineProps<Props>(), {
         <AppHeader :breadcrumbs="breadcrumbs" />
         <AppContent>
             <slot />
+            
         </AppContent>
     </AppShell>
 </template>
