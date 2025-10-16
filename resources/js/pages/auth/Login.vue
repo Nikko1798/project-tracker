@@ -12,6 +12,7 @@ import { LoaderCircle, Eye, EyeClosed } from 'lucide-vue-next';
 import { route } from 'ziggy-js';
 import { onMounted, ref, computed } from 'vue';
 import { usePasswordToggle } from '@/composables/usePasswordToggle';
+import logo from '@/assets/images/Logo2.png';
 defineProps<{
     status?: string;
     canResetPassword: boolean;
@@ -40,8 +41,11 @@ const page=usePage() as any;
 <template>
     <AuthBase title="" description="">
         <Head title="Log in" />
-        <div class="flex flex-col items-center justify-center">
-            <p class="text-center font-cubao text-6xl">
+        <div class="flex flex-col items-center justify-center space-y-2">   
+            <img :src="logo" class="w-15 h-15 object-contain mt-2" />
+            <div class="flex items-center gap-4"> 
+                <!-- use flex instead of grid -->
+                <p class="text-center font-cubao text-6xl flex items-center">
                 <span class="text-red-600">M</span>
                 <span class="text-green-600">A</span>
                 <span class="text-orange-600">B</span>
@@ -49,7 +53,8 @@ const page=usePage() as any;
                 <span class="text-yellow-500">H</span>
                 <span class="text-pink-600">A</span>
                 <span class="text-violet-600">Y</span>
-            </p>
+                </p>
+            </div>
             <p class=" text-sm text-gray-600">
                 Please enter your credentials below to login
             </p>
