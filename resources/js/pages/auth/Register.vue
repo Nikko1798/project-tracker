@@ -27,10 +27,12 @@ import password from '@/routes/password';
 import { type BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { route } from 'ziggy-js';
-
+import { usePasswordToggle } from '@/composables/usePasswordToggle';
 interface Props {
     roles: Roles[];
 }
+const {isPasswordHidden: isMainPasswordHidden, inputType: mainPassInputType, togglePassword: toggleMainPassword} = usePasswordToggle();
+const {isPasswordHidden: isConfirmPasswordHidden, inputType: confirmPassInputType, togglePassword: toggleConfirmPassword} = usePasswordToggle();
 const props=defineProps<Props>();
 const page = usePage() as any;
 // Explicitly grab roles, fallback to empty array
@@ -38,20 +40,20 @@ const roles = (page.props.auth as any)?.roles ?? []
 // Ensure it's a real array (handles Laravel collections)
 const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
 const isSuperAdmin =  roleList.includes('super-admin')
-const ispassSecret = ref(true);
-const isConfirmpassSecret = ref(true);
-const passType=computed(()=>{
-    return ispassSecret.value ? 'password' : 'text' ;
-});
-const ConfirmpassType=computed(()=>{
-    return isConfirmpassSecret.value ? 'password' : 'text' ;
-});
-const showOrHidePass=(()=>{
-    ispassSecret.value= ispassSecret.value ? false : true;
-})
-const showOrHideConfirmPass=(()=>{
-    isConfirmpassSecret.value= isConfirmpassSecret.value ? false : true;
-})
+// const ispassSecret = ref(true);
+// const isConfirmpassSecret = ref(true);
+// const passType=computed(()=>{
+//     return ispassSecret.value ? 'password' : 'text' ;
+// });
+// const ConfirmpassType=computed(()=>{
+//     return isConfirmpassSecret.value ? 'password' : 'text' ;
+// });
+// const showOrHidePass=(()=>{
+//     ispassSecret.value= ispassSecret.value ? false : true;
+// })
+// const showOrHideConfirmPass=(()=>{
+//     isConfirmpassSecret.value= isConfirmpassSecret.value ? false : true;
+// })
 
 const randomPass=computed(()=>{
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&*_+?';
@@ -148,10 +150,10 @@ const form = useForm({
                         <div class="grid gap-2">
                             <Label for="password">Password</Label>
                             <div class="relative">
-                                <Input v-model="form.password" id="password" :type="passType" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
+                                <Input v-model="form.password" id="password" :type="mainPassInputType" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
                                 
-                                <EyeClosed @click="showOrHidePass" v-if="ispassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
-                                <Eye @click="showOrHidePass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <EyeClosed @click="toggleMainPassword" v-if="isMainPasswordHidden" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <Eye @click="toggleMainPassword" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
                             </div>
                             <InputError :message="errors.password" />
                         </div>
@@ -162,15 +164,15 @@ const form = useForm({
                                 <Input
                                     v-model="form.password_confirmation"
                                     id="password_confirmation"
-                                    :type="ConfirmpassType"
+                                    :type="confirmPassInputType"
                                     required
                                     :tabindex="5"
                                     autocomplete="new-password"
                                     name="password_confirmation"
                                     placeholder="Confirm password"
                                 />
-                                <EyeClosed @click="showOrHideConfirmPass" v-if="isConfirmpassSecret" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
-                                <Eye @click="showOrHideConfirmPass" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <EyeClosed @click="toggleConfirmPassword" v-if="isConfirmPasswordHidden" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
+                                <Eye @click="toggleConfirmPassword" v-else class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500" />
                            </div>
                             <InputError :message="errors.password_confirmation" />
                         </div>

@@ -47,7 +47,7 @@ const submit = () => {
         <Head title="Profile settings" />
 
         <SettingsLayout>
-            <div class="flex flex-col space-y-6">
+            <div class="flex flex-col space-y-6 md:max-w-2xl">
                 <HeadingSmall title="Profile information" description="Update your name and email address" />
                  <div v-if="page.props.errors.auth_error">
                     <Alert variant="destructive">
