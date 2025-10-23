@@ -99,7 +99,7 @@ function isArrayOfPrimitives(arr: any) {
                             </div>
                         </template>
                         <template #cell-4="{rowData}">
-                            <div class="space-x-2" >
+                            <div class="space-x-2 space-y-2" >
                                 <ChangePasswordForm :UserId="rowData.id"/>
                                 <UpdateProfileForm :UserData="rowData"/>
                             </div>
