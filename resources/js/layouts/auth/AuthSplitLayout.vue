@@ -57,12 +57,12 @@ onMounted(() => {
     </div>
 
     <!-- Right (form area) -->
-    <div class="paint-bg lg:p-8 h-full flex w-full">
-      <div class="mx-auto flex w-full max-w-md flex-col justify-center space-y-6 px-4">
-        <div class="flex flex-col text-center">
+    <div class="paint-bg lg:p-8 h-full relative ">
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md flex flex-col space-y-6 px-10 md:px-4">
+        <div class="flex flex-col text-center ">
           <h1 class="text-xl font-medium tracking-tight">{{ title }}</h1>
           <p class="text-sm opacity-80">
-            <span class="">{{ description }}</span>
+            <span>{{ description }}</span>
           </p>
         </div>
         <slot />
