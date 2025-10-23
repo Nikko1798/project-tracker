@@ -58,7 +58,7 @@ onMounted(() => {
 
     <!-- Right (form area) -->
     <div class="paint-bg lg:p-8 h-full flex w-full">
-      <div class="mx-auto flex w-full max-w-md flex-col space-y-6 px-4">
+      <div class="mx-auto flex w-full max-w-md flex-col justify-center space-y-6 px-4">
         <div class="flex flex-col text-center">
           <h1 class="text-xl font-medium tracking-tight">{{ title }}</h1>
           <p class="text-sm opacity-80">
