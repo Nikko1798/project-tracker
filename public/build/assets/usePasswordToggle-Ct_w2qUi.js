@@ -1,0 +1,1 @@
+import{E as t,q as r}from"./app-DkZr0wb7.js";function a(){const s=t(!0),e=r(()=>s.value?"password":"text");function o(){s.value=!s.value}return{isPasswordHidden:s,inputType:e,togglePassword:o}}export{a as u};
