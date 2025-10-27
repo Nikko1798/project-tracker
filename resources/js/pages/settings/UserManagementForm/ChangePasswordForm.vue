@@ -19,18 +19,21 @@ import { Eye, EyeClosed, CheckCheckIcon } from 'lucide-vue-next';
 import { usePasswordToggle } from '@/composables/usePasswordToggle';
 import { ref } from 'vue';
 import { useAlertService } from '@/composables/MessageBox';
+import { generatepassword } from '@/composables/generatePassword';
 const {isPasswordHidden: isMainPasswordHidden, inputType: mainPassInputType, togglePassword: toggleMainPassword} = usePasswordToggle();
 const {isPasswordHidden: isConfirmPasswordHidden, inputType: confirmPassInputType, togglePassword: toggleConfirmPassword} = usePasswordToggle();
 const {isPasswordHidden: isCurrentasswordHidden, inputType: CurrentPassInputType, togglePassword: toggleCurrentPassword} = usePasswordToggle();
 const {openSuccessNotification, openErrorNotification}=useAlertService();
+const {randomPass}=generatepassword();
 const props=defineProps({
     UserId: {type: Number, required: true}
 })
 const isModalOpen=ref(false);
+
 const form = useForm({
     current_password: '',
-    password: '',
-    password_confirmation: '',
+    password: randomPass.value,
+    password_confirmation: randomPass.value,
 });
  const submit=(async ()=>{
     try{
