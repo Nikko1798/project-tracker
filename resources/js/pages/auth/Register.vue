@@ -28,6 +28,7 @@ import { type BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { route } from 'ziggy-js';
 import { usePasswordToggle } from '@/composables/usePasswordToggle';
+import { generatepassword } from '@/composables/generatePassword';
 interface Props {
     roles: Roles[];
 }
@@ -40,29 +41,9 @@ const roles = (page.props.auth as any)?.roles ?? []
 // Ensure it's a real array (handles Laravel collections)
 const roleList: string[] = Array.isArray(roles) ? roles : Object.values(roles)
 const isSuperAdmin =  roleList.includes('super-admin')
-// const ispassSecret = ref(true);
-// const isConfirmpassSecret = ref(true);
-// const passType=computed(()=>{
-//     return ispassSecret.value ? 'password' : 'text' ;
-// });
-// const ConfirmpassType=computed(()=>{
-//     return isConfirmpassSecret.value ? 'password' : 'text' ;
-// });
-// const showOrHidePass=(()=>{
-//     ispassSecret.value= ispassSecret.value ? false : true;
-// })
-// const showOrHideConfirmPass=(()=>{
-//     isConfirmpassSecret.value= isConfirmpassSecret.value ? false : true;
-// })
+const {randomPass}=generatepassword();
 
-const randomPass=computed(()=>{
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&*_+?';
-    let result = '';
-    for (let i = 0; i < 14; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-})
+
 const form = useForm({
     role: null,
     reference_number: '', 
