@@ -48,19 +48,24 @@ class RegisteredUserController extends Controller
     {
         try{
             return DB::transaction(function () use ($request) {
-                $request->validate([
-                    'name' => 'required|string|max:255',
-                    'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                $rules=[
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                ]);
-                if (Auth::user()->hasRole('super-admin')) {
+                    'role' => ['integer'],
+                ];
+                $role=Role::findOrFail($request->role);
+                // if (Auth::user()->hasRole('super-admin'))
+                if($role->name!="visitor") {
                     $rules['role'] = ['required', 'integer'];
-                    $rules['reference_number'] = ['nullable|string|max:255|unique:'.ReferenceNumber::class];
+                    $rules['reference_number'] = ['nullable', 'string', 'max:255', 'unique:'.ReferenceNumber::class];
                     
                 } else {
                     $rules['role'] = ['nullable', 'integer']; // optional for others
-                    $rules['reference_number'] = ['required|string|max:255|unique:'.ReferenceNumber::class];
+                    $rules['reference_number'] = ['required', 'string', 'max:255', 'unique:'.ReferenceNumber::class];
                 }
+                
+                $request->validate($rules);
 
                 $user = User::create([
                     'name' => $request->name,
