@@ -40,7 +40,7 @@ class MailService
     }
      public function PasswordResetMail($request, $user)
     {
-        $loginId = $user->hasRole('visitor') ?  $user->reference_number : $user->email;
+        $loginId = $user->hasRole('visitor') ?  $user->reference_numbers()->first()->reference_number : $user->email;
         $data=[
             'app_url' => env('APP_URL'),
             'email' => $user->email,
