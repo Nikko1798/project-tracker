@@ -12,12 +12,15 @@ use App\Http\Requests\Settings\UserProfileUpdateRequest;
 use App\Models\User;
 
 use App\Repositories\UserRepository;
+use App\Services\UserManagementService;
 class UserManagementController extends Controller
 {
     //
     protected $userRepository;
-    public function __construct(UserRepository $userRepository){
+    protected $userManagement;
+    public function __construct(UserRepository $userRepository, UserManagementService $userManagement){
         $this->userRepository=$userRepository;
+        $this->userManagement=$userManagement;
     }
     public function index():Response{
         
@@ -33,11 +36,8 @@ class UserManagementController extends Controller
     }
     public function resetPassword(Request $request,User $user)
     {
-        $validated = $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
-        ]);
-        return $this->userRepository->resetPassword($validated, $user);
+        return $this->userManagement->resetPassword( $request, $user);
+        // return $this->userRepository->resetPassword($validated, $user);
     }
     public function updateUserProfile(UserProfileUpdateRequest $request,User $user)
     {

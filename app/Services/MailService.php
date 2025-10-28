@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Mail\NewuserCreatemail;
 use App\Mail\ForgotPasswordmail;
+use App\Mail\PasswordResetMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
@@ -36,5 +37,17 @@ class MailService
         ];
 
         Mail::to($user->email)->send(new ForgotPasswordmail($data));
+    }
+     public function PasswordResetMail($request, $user)
+    {
+        $loginId = $user->hasRole('visitor') ?  $user->reference_number : $user->email;
+        $data=[
+            'app_url' => env('APP_URL'),
+            'email' => $user->email,
+            'loginId' => $loginId ,
+            'password' => $request->password
+        ];
+
+        Mail::to($user->email)->send(new PasswordResetMail($data));
     }
 }
