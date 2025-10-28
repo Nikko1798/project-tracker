@@ -37,8 +37,7 @@
                                         <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">MABUHAY
                                         </h1>
                                         <p style="font-size:15px; color:#455056; margin:8px 0 0; line-height:24px;">
-                                            Your account credentials for the NCCA Project Status Tracker have been updated. <br/>Below are your system generated credentials, <br><strong>Please change
-                                            the password immediately after login</strong>.</p>
+                                            Your account credentials for the NCCA Project Status Tracker have been updated. <br/>Below are your system-generated credentials. <br><strong>PlePlease change your password immediately after logging in.</strong>.</p>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p
