@@ -87,7 +87,7 @@ const form = useForm({
                 <Form
                     :action="route('register')"
                     method="post"
-                    :reset-on-success="['password', 'password_confirmation']"
+                    :reset-on-success="['password', 'password_confirmation','name', 'role', 'reference_number', 'email']"
                     v-slot="{ errors, processing }"
                     class="flex flex-col gap-6"
                 >
@@ -105,7 +105,7 @@ const form = useForm({
                                 :tabindex="2" autocomplete="name" name="name" placeholder="Full name" />
                             <InputError :message="errors.name" />
                         </div>
-                        <div class="grid gap-w" v-if="isSuperAdmin">
+                        <div class="grid gap-w">
                             <Label for="role">Role</Label>
                             <Select  v-model="form.role" name="role" id="role">
                                 <SelectTrigger class="w-full">
