@@ -20,7 +20,7 @@
                 <p class="text-gray-600 text-sm">{{ props.pisData[0]?.proponent_name  }}</p>
             </div>
             <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">
-                <p class="text-gray-600 text-sm"><b>Account Status: </b></p>
+                <p class="text-gray-600 text-sm"><b>Accreditation Status: </b></p>
                 <p class="text-gray-600 text-sm">{{ props.pisData[0]?.accStat}}</p>
             </div>
             <div class="grid grid-cols-[40%_60%] lg:grid-cols-[25%_75%] gap-4">

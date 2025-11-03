@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
     {
         
         if((Auth::user()->hasRole('super-admin')) || (Auth::user()->hasRole('admin'))){
-            $roles=Role::all();
+            $roles=Auth::user()->hasRole('super-admin') ? Role::all() : Role::where('name', 'visitor')->get();
             return Inertia::render('auth/Register', [
                 'roles'=>$roles
             ]);
@@ -52,17 +52,18 @@ class RegisteredUserController extends Controller
                     'name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                    'role' => ['integer'],
+                    'role' => ['required','integer'],
                 ];
+
+                $request->validate($rules);
                 $role=Role::findOrFail($request->role);
-                // if (Auth::user()->hasRole('super-admin'))
-                if($role->name!="visitor") {
-                    $rules['role'] = ['required', 'integer'];
+                if(($role->name!="visitor"))
+                {
                     $rules['reference_number'] = ['nullable', 'string', 'max:255', 'unique:'.ReferenceNumber::class];
-                    
-                } else {
-                    $rules['role'] = ['nullable', 'integer']; // optional for others
+                }
+                else{
                     $rules['reference_number'] = ['required', 'string', 'max:255', 'unique:'.ReferenceNumber::class];
+            
                 }
                 
                 $request->validate($rules);
