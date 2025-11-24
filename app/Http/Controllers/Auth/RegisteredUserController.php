@@ -90,7 +90,7 @@ class RegisteredUserController extends Controller
 
 
                 // Auth::login($user);
-                $this->mailService->newUserCreated($request);
+                // $this->mailService->newUserCreated($request);
                 return to_route('register')->with('success', 'The user account for ' . $user->name . ' has been successfully created.');
             });
         }

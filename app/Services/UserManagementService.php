@@ -29,7 +29,7 @@ class UserManagementService
                 ]);
                 
                 $this->userRepository->resetPassword($validated, $user);
-                $this->mailService->PasswordResetMail($request, $user);
+                // $this->mailService->PasswordResetMail($request, $user);
                 return response()->json([
                     'success' => true,
                     'message' => "Password Successfully updated.",
