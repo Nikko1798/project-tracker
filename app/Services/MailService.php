@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
 use Spatie\Permission\Models\Role;
-use App\Models\user;
+use App\Models\User;
 class MailService
 {
     public function newUserCreated($request){
