@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
@@ -32,10 +33,9 @@
         </style>
 
         <!-- <title inertia>{{ config('app.name', 'Tracker') }}</title> -->
-         <title>National Commission for Culture and the Arts - Project Status Tracker</title>
+        <title>National Commission for Culture and the Arts - Project Status Tracker</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/ncca.ico')  }}">
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
