@@ -18,6 +18,7 @@
             <!-- <ApprovedBudgetDetails :pisData="pisData" /> -->
             
             <ResponsiblePersons :pisData="pisData" />
+            <BottomStatusHistory :pisData="pisData"/>
         </div>
 
         <!-- Right column (matches height, scrolls if longer) -->
@@ -35,6 +36,7 @@ import HeaderDetails from './HeaderDetails.vue';
 import ProponentDetails from './ProponentDetails.vue';
 import ResponsiblePersons from './ResponsiblePersons.vue';
 import ApprovedBudgetDetails from './ApprovedBudgetDetails.vue';
+import BottomStatusHistory from './BottomStatusHistory.vue';
 const props=defineProps({
      pisData: {
         type: Object as PropType<Record<string, any>>, 
