@@ -1,0 +1,1 @@
+import{q as a}from"./app-BMLRUz-u.js";function n(){return{randomPass:a(()=>{const r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$%&*_+?";let t="";for(let o=0;o<14;o++)t+=r.charAt(Math.floor(Math.random()*r.length));return t})}}export{n as g};
