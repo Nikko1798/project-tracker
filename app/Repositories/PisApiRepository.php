@@ -19,7 +19,9 @@ class PisApiRepository
         $referenceNumber=Auth::user()->reference_numbers()->first();
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiToken,
-        ])->get($this->apiUrl . 'project-data/' . $referenceNumber->reference_number);
+        ])
+        ->withoutVerifying()//this is a security risk, but it works. Remove this if there is a valid and working SSL certificate on the API server.
+        ->get($this->apiUrl . 'project-data/' . $referenceNumber->reference_number);
 
         return $response;
     }
